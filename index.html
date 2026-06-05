@@ -795,6 +795,43 @@ const TMPLS=[
       c.strokeStyle="rgba(0,0,0,0.04)";
       for(let i=0;i<w;i+=40){c.beginPath();c.moveTo(i,0);c.lineTo(i,h);c.lineWidth=.5;c.stroke();}
       for(let i=0;i<h;i+=40){c.beginPath();c.moveTo(0,i);c.lineTo(w,i);c.lineWidth=.5;c.stroke();}
+    }},
+  {name:"Sunrise",tc:"#fff4e8",ac:"#ffb36b",
+    draw(c,w,h){
+      c.fillStyle="#1f120c";c.fillRect(0,0,w,h);
+      const g=c.createLinearGradient(0,0,w,h);
+      g.addColorStop(0,"#ff9f6e");g.addColorStop(0.45,"#ffcf9f");g.addColorStop(1,"#2c160f");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.fillStyle="rgba(255,255,255,0.08)";
+      for(let i=0;i<8;i++){c.beginPath();c.arc(w*0.18+i*110,h*0.22,18+i*6,0,Math.PI*2);c.fill();}
+    }},
+  {name:"Mist",tc:"#eff6ff",ac:"#8fb6e0",
+    draw(c,w,h){
+      c.fillStyle="#0d1725";c.fillRect(0,0,w,h);
+      const g=c.createRadialGradient(w*0.5,h*0.35,0,w*0.5,h*0.35,w*0.7);
+      g.addColorStop(0,"rgba(135,180,220,0.18)");g.addColorStop(1,"transparent");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(255,255,255,0.08)";c.lineWidth=1;
+      for(let i=0;i<10;i++){c.beginPath();c.moveTo(-20,h*0.25+i*55);c.lineTo(w+20,h*0.12+i*55);c.stroke();}
+    }},
+  {name:"Amber",tc:"#fff7df",ac:"#f2c66d",
+    draw(c,w,h){
+      c.fillStyle="#20170b";c.fillRect(0,0,w,h);
+      for(let i=0;i<6;i++){
+        c.fillStyle=`rgba(242,198,109,${0.06+i*0.02})`;
+        c.fillRect(i*40,0,w-i*80,h);
+      }
+      c.strokeStyle="rgba(255,255,255,0.05)";c.lineWidth=1;
+      for(let i=0;i<14;i++){c.beginPath();c.moveTo(0,i*60);c.lineTo(w,i*60+30);c.stroke();}
+    }},
+  {name:"Rose",tc:"#fff1f5",ac:"#f3a0b8",
+    draw(c,w,h){
+      c.fillStyle="#1b0c13";c.fillRect(0,0,w,h);
+      const g=c.createRadialGradient(w*0.5,h*0.5,0,w*0.5,h*0.5,w*0.75);
+      g.addColorStop(0,"rgba(245,145,180,0.14)");g.addColorStop(1,"transparent");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(255,255,255,0.05)";c.lineWidth=1;
+      for(let i=0;i<12;i++){c.beginPath();c.arc(w*0.5,h*0.5,80+i*18,Math.PI/4+i*0.08,Math.PI*1.25+i*0.08);c.stroke();}
     }}
 ];
 
