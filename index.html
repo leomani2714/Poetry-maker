@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kavithai Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@300;400;600&family=Noto+Sans+Tamil:wght@300;400;600&family=Meera+Inimai&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0c0a;
+    --bg2: #141210;
+    --bg3: #1c1917;
+    --bg4: #242018;
+    --surface: #1e1b16;
+    --surface2: #252118;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --gold: #c9a84c;
+    --gold2: #e8d5a3;
+    --gold3: #f5edd6;
+    --text: #f0ebe2;
+    --text2: #a89f92;
+    --text3: #6b6358;
+    --accent: #c9a84c;
+    --accent-dim: rgba(201,168,76,0.15);
+    --red: #e05252;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --radius-lg: 14px;
+    --transition: 0.18s cubic-bezier(.4,0,.2,1);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SCROLLBAR ─────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+  /* ── LAYOUT ────────────────────────────── */
+  .app { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+  .topbar {
+    height: 56px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+
+  .logo-mark {
+    width: 30px; height: 30px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--gold);
+  }
+
+  .logo-text {
+    display: flex; flex-direction: column; gap: 1px;
+  }
+
+  .logo-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: system-ui, sans-serif;
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+
+  .topbar-pill {
+    font-family: system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--text3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    letter-spacing: 0.08em;
+  }
+
+  .btn-export {
+    display: flex; align-items: center; gap: 7px;
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--bg);
+    background: var(--gold);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+  }
+
+  .btn-export:hover { background: var(--gold2); }
+  .btn-export:active { transform: scale(0.97); }
+
+  .btn-export-ghost {
+    display: flex; align-items: center; gap: 7px;
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text2);
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+  }
+
+  .btn-export-ghost:hover { background: var(--bg4); border-color: var(--text3); }
+
+  /* ── MAIN AREA ─────────────────────────── */
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  /* ── LEFT SIDEBAR ──────────────────────── */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-section {
+    padding: 20px 18px 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+  }
+
+  .sidebar-section:last-child { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .sec-head-icon {
+    width: 24px; height: 24px;
+    border-radius: 5px;
+    background: var(--bg4);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text3);
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .sec-title {
+    font-family: system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  /* ── TEMPLATES ─────────────────────────── */
+  .tmpls-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .tb {
+    aspect-ratio: 3/4;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    overflow: hidden;
+    background: none;
+    padding: 0;
+    position: relative;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+
+  .tb:hover { border-color: var(--border2); transform: translateY(-1px); }
+
+  .tb.on {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+
+  .tb canvas { width: 100%; height: 100%; display: block; }
+
+  .tb-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);
+    padding: 5px 4px;
+  }
+
+  .tb-name {
+    font-family: system-ui, sans-serif;
+    font-size: 9px;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.05em;
+    width: 100%;
+    text-align: center;
+  }
+
+  .tb .del-btn {
+    position: absolute; top: 3px; right: 3px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.7);
+    border: none; color: #fff; font-size: 11px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition);
+    line-height: 1;
+  }
+
+  .tb:hover .del-btn { opacity: 1; }
+
+  /* ── UPLOAD ────────────────────────────── */
+  .upload-zone {
+    border: 1px dashed var(--border2);
+    border-radius: var(--radius);
+    padding: 18px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition);
+    background: var(--bg3);
+  }
+
+  .upload-zone:hover { border-color: var(--gold); background: var(--accent-dim); }
+  .upload-zone input { display: none; }
+
+  .upload-zone i { font-size: 22px; color: var(--text3); display: block; margin-bottom: 6px; }
+
+  .upload-zone p {
+    font-family: system-ui, sans-serif;
+    font-size: 12px; color: var(--text2);
+  }
+
+  .upload-zone small {
+    font-family: system-ui, sans-serif;
+    font-size: 10px; color: var(--text3);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── CONTROLS ──────────────────────────── */
+  .ctrl-row { margin-bottom: 12px; }
+  .ctrl-row:last-child { margin-bottom: 0; }
+
+  .ctrl-label {
+    font-family: system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ctrl-label span { color: var(--text2); font-weight: 400; }
+
+  select, input[type=text] {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 13px;
+    font-family: system-ui, sans-serif;
+    padding: 8px 10px;
+    outline: none;
+    transition: border-color var(--transition);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6358' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+
+  select:focus, input[type=text]:focus { border-color: var(--gold); }
+
+  select option { background: var(--bg3); }
+
+  input[type=range] {
+    width: 100%;
+    appearance: none;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--bg4);
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--bg2);
+    cursor: pointer;
+    transition: transform var(--transition);
+  }
+
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+  .color-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  input[type=color] {
+    width: 36px; height: 34px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg3);
+    cursor: pointer;
+    padding: 3px;
+    flex-shrink: 0;
+  }
+
+  .color-hex {
+    font-family: 'SF Mono', 'Fira Mono', monospace;
+    font-size: 12px;
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    flex: 1;
+  }
+
+  .overlay-ctrl { display: none; }
+  .overlay-ctrl.visible { display: block; }
+
+  /* ── ALIGN BUTTONS ─────────────────────── */
+  .align-group { display: flex; gap: 5px; }
+
+  .align-btn {
+    flex: 1;
+    height: 34px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text3);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--transition), border-color var(--transition), color var(--transition);
+  }
+
+  .align-btn:hover { border-color: var(--border2); color: var(--text2); }
+  .align-btn.on { background: var(--accent-dim); border-color: var(--gold); color: var(--gold); }
+
+  /* ── CENTER CANVAS AREA ────────────────── */
+  .canvas-area {
+    flex: 1;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    overflow: auto;
+    position: relative;
+  }
+
+  .canvas-bg-pattern {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(var(--bg3) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .canvas-frame {
+    position: relative;
+    z-index: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px var(--border2);
+  }
+
+  canvas#cv {
+    display: block;
+    max-height: calc(100vh - 160px);
+    width: auto;
+  }
+
+  .canvas-hint {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-family: system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 6px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+  }
+
+  /* ── RIGHT PANEL ───────────────────────── */
+  .right-panel {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--bg2);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rp-section {
+    padding: 20px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rp-section:last-child { border-bottom: none; }
+
+  textarea#poem {
+    width: 100%;
+    min-height: 180px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.9;
+    padding: 12px 14px;
+    resize: vertical;
+    outline: none;
+    font-family: 'Noto Serif Tamil', 'EB Garamond', serif;
+    transition: border-color var(--transition);
+  }
+
+  textarea#poem:focus { border-color: var(--gold); }
+  textarea#poem::placeholder { color: var(--text3); }
+
+  .char-count {
+    font-family: system-ui, sans-serif;
+    font-size: 10px;
+    color: var(--text3);
+    text-align: right;
+    margin-top: 5px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── STATUS BAR ────────────────────────── */
+  .statusbar {
+    height: 28px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .status-item {
+    font-family: system-ui, sans-serif;
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .status-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #4caf7d;
+  }
+
+  /* ── TOOLTIP ───────────────────────────── */
+  [data-tip] { position: relative; }
+  [data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%; transform: translateX(-50%);
+    background: var(--bg4);
+    color: var(--text2);
+    font-family: system-ui, sans-serif;
+    font-size: 11px;
+    white-space: nowrap;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border2);
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* ── ANIMATIONS ────────────────────────── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .app { animation: fadeUp 0.3s ease; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo-mark"><i class="ti ti-feather"></i></div>
+      <div class="logo-text">
+        <span class="logo-title">Kavithai Studio</span>
+        <span class="logo-sub">Poetry Image Creator</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-pill">Tamil &amp; English</span>
+      <button class="btn-export-ghost" onclick="dl('jpeg')">
+        <i class="ti ti-photo" style="font-size:13px"></i> JPEG
+      </button>
+      <button class="btn-export" onclick="dl('png')">
+        <i class="ti ti-download" style="font-size:13px"></i> Export PNG
+      </button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- LEFT SIDEBAR: TEMPLATES + STYLE -->
+    <div class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="sec-head">
+          <div class="sec-head-icon"><i class="ti ti-layout-grid"></i></div>
+          <span class="sec-title">Templates</span>
+        </div>
+        <div class="tmpls-grid" id="trow"></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sec-head">
+          <div class="sec-head-icon"><i class="ti ti-photo-up"></i></div>
+          <span class="sec-title">Custom Image</span>
+        </div>
+        <div class="upload-zone" id="uzone" onclick="document.getElementById('ufile').click()">
+          <input type="file" id="ufile" accept="image/*">
+          <i class="ti ti-cloud-upload"></i>
+          <p>Drop or click to upload</p>
+          <small>JPG · PNG · WEBP</small>
+        </div>
+      </div>
+
+      <div class="sidebar-section overlay-ctrl" id="overlay-block">
+        <div class="sec-head">
+          <div class="sec-head-icon"><i class="ti ti-brightness"></i></div>
+          <span class="sec-title">Image Overlay</span>
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Darkness <span id="ovout">45%</span></div>
+          <input type="range" id="overlay" min="0" max="0.85" value="0.45" step="0.05">
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sec-head">
+          <div class="sec-head-icon"><i class="ti ti-typography"></i></div>
+          <span class="sec-title">Typography</span>
+        </div>
+
+        <div class="ctrl-row">
+          <div class="ctrl-label">Font family</div>
+          <select id="fsel">
+            <option value="'Noto Serif Tamil',serif">Noto Serif Tamil</option>
+            <option value="'Noto Sans Tamil',sans-serif">Noto Sans Tamil</option>
+            <option value="'Meera Inimai',sans-serif">Meera Inimai</option>
+            <option value="'EB Garamond',serif">EB Garamond (EN)</option>
+            <option value="'Cormorant Garamond',serif">Cormorant Garamond (EN)</option>
+            <option value="'Crimson Pro',serif">Crimson Pro (EN)</option>
+          </select>
+        </div>
+
+        <div class="ctrl-row">
+          <div class="ctrl-label">Size <span id="fsout">24</span>px</div>
+          <input type="range" id="fs" min="14" max="48" value="24" step="1">
+        </div>
+
+        <div class="ctrl-row">
+          <div class="ctrl-label">Line height <span id="lsout">1.8</span>×</div>
+          <input type="range" id="ls" min="1.2" max="3.0" value="1.8" step="0.1">
+        </div>
+
+        <div class="ctrl-row">
+          <div class="ctrl-label">Alignment</div>
+          <div class="align-group">
+            <button class="align-btn" id="al-left" data-align="left" data-tip="Left" onclick="setAlign('left')"><i class="ti ti-align-left"></i></button>
+            <button class="align-btn on" id="al-center" data-align="center" data-tip="Center" onclick="setAlign('center')"><i class="ti ti-align-center"></i></button>
+            <button class="align-btn" id="al-right" data-align="right" data-tip="Right" onclick="setAlign('right')"><i class="ti ti-align-right"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sec-head">
+          <div class="sec-head-icon"><i class="ti ti-palette"></i></div>
+          <span class="sec-title">Appearance</span>
+        </div>
+
+        <div class="ctrl-row">
+          <div class="ctrl-label">Text color</div>
+          <div class="color-row">
+            <input type="color" id="tc" value="#ffffff">
+            <span class="color-hex" id="tc-hex">#ffffff</span>
+          </div>
+        </div>
+
+        <div class="ctrl-row">
+          <div class="ctrl-label">Author / attribution</div>
+          <input type="text" id="auth" placeholder="e.g. திருவள்ளுவர்" style="font-family:'Noto Sans Tamil',system-ui,sans-serif">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CANVAS CENTER -->
+    <div class="canvas-area">
+      <div class="canvas-bg-pattern"></div>
+      <div class="canvas-frame">
+        <canvas id="cv" width="800" height="1000"></canvas>
+      </div>
+      <div class="canvas-hint">
+        <i class="ti ti-info-circle" style="font-size:12px"></i>
+        800 × 1000 px · Print ready
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: POEM INPUT -->
+    <div class="right-panel">
+      <div class="rp-section">
+        <div class="sec-head">
+          <div class="sec-head-icon"><i class="ti ti-pencil"></i></div>
+          <span class="sec-title">Poem</span>
+        </div>
+        <textarea id="poem" placeholder="உங்கள் கவிதையை இங்கே ஒட்டவும்...
+Paste your poem here...">யாகாவாராயினும் நாகாக்க காவாக்கால்
+சோகாப்பர் சொல்லிழுக்கப் பட்டு.
+
+— திருவள்ளுவர்</textarea>
+        <div class="char-count"><span id="lcount">3</span> lines · <span id="ccount">68</span> chars</div>
+      </div>
+
+      <div class="rp-section">
+        <div class="sec-head">
+          <div class="sec-head-icon"><i class="ti ti-download"></i></div>
+          <span class="sec-title">Export</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="btn-export" style="width:100%;justify-content:center;padding:11px;" onclick="dl('png')">
+            <i class="ti ti-file-type-png" style="font-size:15px"></i>
+            Export as PNG
+          </button>
+          <button class="btn-export-ghost" style="width:100%;justify-content:center;padding:10px;" onclick="dl('jpeg')">
+            <i class="ti ti-file-type-jpg" style="font-size:15px"></i>
+            Export as JPEG
+          </button>
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);">
+          <p style="font-family:system-ui;font-size:11px;color:var(--text3);line-height:1.5;">
+            Output: <strong style="color:var(--text2)">800 × 1000 px</strong><br>
+            Format: PNG (lossless) or JPEG 95%<br>
+            Ready for print &amp; social sharing
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="statusbar">
+    <div class="status-item">
+      <div class="status-dot"></div>
+      Ready
+    </div>
+    <div class="status-item">Canvas 800×1000</div>
+    <div class="status-item" id="status-tmpl">Template: இரவு</div>
+    <div class="status-item" id="status-font">Font: Noto Serif Tamil</div>
+  </div>
+
+</div>
+
+<script>
+const TMPLS=[
+  {name:"இரவு",tc:"#e8e0ff",ac:"#b0a0e0",
+    draw(c,w,h){
+      c.fillStyle="#0d0c18";c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(180,160,255,0.05)";
+      for(let i=0;i<10;i++){c.beginPath();c.arc(w/2,h*.45,70+i*72,0,Math.PI*2);c.lineWidth=.5;c.stroke();}
+      const g=c.createRadialGradient(w/2,h*.45,0,w/2,h*.45,w*.6);
+      g.addColorStop(0,"rgba(100,80,200,0.12)");g.addColorStop(1,"transparent");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+    }},
+  {name:"பொன்னொளி",tc:"#f5e49a",ac:"#d4af37",
+    draw(c,w,h){
+      c.fillStyle="#0e0b00";c.fillRect(0,0,w,h);
+      const g=c.createRadialGradient(w*.5,h*.5,0,w*.5,h*.5,w*.7);
+      g.addColorStop(0,"rgba(201,168,76,0.08)");g.addColorStop(1,"transparent");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(201,168,76,0.2)";c.lineWidth=1.5;c.strokeRect(32,32,w-64,h-64);
+      c.strokeStyle="rgba(201,168,76,0.06)";c.lineWidth=.4;c.strokeRect(48,48,w-96,h-96);
+      for(let i=0;i<16;i++){c.beginPath();c.moveTo(i*(w/16),0);c.lineTo(i*(w/16)+160,h);c.lineWidth=.3;c.stroke();}
+    }},
+  {name:"மலர்",tc:"#5a2030",ac:"#b85060",
+    draw(c,w,h){
+      c.fillStyle="#fef6f0";c.fillRect(0,0,w,h);
+      [[.08,.08,"#fce4ec"],[.92,.1,"#fdd5c0"],[.05,.9,"#fff0e8"],[.93,.88,"#fce4ec"],[.5,.5,"#fdeef5"]].forEach(([sx,sy,col])=>{
+        const g=c.createRadialGradient(sx*w,sy*h,0,sx*w,sy*h,w*.5);
+        g.addColorStop(0,col+"cc");g.addColorStop(1,"transparent");
+        c.fillStyle=g;c.fillRect(0,0,w,h);
+      });
+    }},
+  {name:"பழந்தாள்",tc:"#2e1a0e",ac:"#7a4a20",
+    draw(c,w,h){
+      c.fillStyle="#f2e8cc";c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(100,60,20,0.07)";
+      for(let i=0;i<h;i+=24){c.beginPath();c.moveTo(0,i);c.lineTo(w,i);c.lineWidth=.4;c.stroke();}
+      const g=c.createRadialGradient(0,0,0,0,0,w);g.addColorStop(0,"transparent");g.addColorStop(1,"rgba(80,40,10,0.12)");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(100,60,20,0.18)";c.lineWidth=1.2;c.strokeRect(22,22,w-44,h-44);
+    }},
+  {name:"காடு",tc:"#c8e6c9",ac:"#81c784",
+    draw(c,w,h){
+      c.fillStyle="#081208";c.fillRect(0,0,w,h);
+      const g=c.createRadialGradient(w/2,h*.2,0,w/2,h*.2,w*.9);
+      g.addColorStop(0,"#142a16");g.addColorStop(1,"#081208");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(80,160,80,0.06)";
+      for(let i=0;i<18;i++){c.beginPath();c.moveTo(Math.random()*w,0);c.lineTo(Math.random()*w,h);c.lineWidth=.4;c.stroke();}
+    }},
+  {name:"நீலக்கடல்",tc:"#dbeeff",ac:"#80b8e8",
+    draw(c,w,h){
+      c.fillStyle="#040d1c";c.fillRect(0,0,w,h);
+      const g=c.createRadialGradient(w*.35,h*.3,0,w*.35,h*.3,w*.8);
+      g.addColorStop(0,"#091e3a");g.addColorStop(1,"#040d1c");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(80,140,210,0.06)";
+      for(let i=0;i<7;i++){c.beginPath();c.arc(w*.35,h*.3,80+i*90,0,Math.PI*2);c.lineWidth=.5;c.stroke();}
+    }},
+  {name:"சிவப்பு",tc:"#ffe8e8",ac:"#e08080",
+    draw(c,w,h){
+      c.fillStyle="#120808";c.fillRect(0,0,w,h);
+      const g=c.createRadialGradient(w/2,h/2,0,w/2,h/2,w*.7);
+      g.addColorStop(0,"rgba(180,40,40,0.15)");g.addColorStop(1,"transparent");
+      c.fillStyle=g;c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(200,80,80,0.08)";c.lineWidth=.5;
+      for(let i=0;i<8;i++){c.beginPath();c.arc(w/2,h/2,60+i*80,0,Math.PI*2);c.stroke();}
+    }},
+  {name:"வெண்மை",tc:"#2a2a2a",ac:"#666",
+    draw(c,w,h){
+      c.fillStyle="#fafaf8";c.fillRect(0,0,w,h);
+      c.strokeStyle="rgba(0,0,0,0.04)";
+      for(let i=0;i<w;i+=40){c.beginPath();c.moveTo(i,0);c.lineTo(i,h);c.lineWidth=.5;c.stroke();}
+      for(let i=0;i<h;i+=40){c.beginPath();c.moveTo(0,i);c.lineTo(w,i);c.lineWidth=.5;c.stroke();}
+    }}
+];
+
+let templates=[...TMPLS.map(t=>({...t,isCustom:false}))];
+let active=0;
+let curAlign='center';
+const cv=document.getElementById('cv');
+const ctx2=cv.getContext('2d');
+
+function hexVal(c){
+  const d=document.createElement('div');d.style.color=c;document.body.appendChild(d);
+  const s=getComputedStyle(d).color;document.body.removeChild(d);
+  const m=s.match(/\d+/g);if(!m)return c;
+  return '#'+m.slice(0,3).map(x=>parseInt(x).toString(16).padStart(2,'0')).join('');
+}
+
+function buildThumb(t){
+  const mc=document.createElement('canvas');mc.width=90;mc.height=120;
+  const mc2=mc.getContext('2d');
+  if(t.img){
+    const iw=t.img.naturalWidth||t.img.width,ih=t.img.naturalHeight||t.img.height;
+    const sc=Math.max(90/iw,120/ih);
+    mc2.drawImage(t.img,(90-iw*sc)/2,(120-ih*sc)/2,iw*sc,ih*sc);
+    mc2.fillStyle="rgba(0,0,0,0.35)";mc2.fillRect(0,0,90,120);
+  } else { t.draw(mc2,90,120); }
+  return mc;
+}
+
+function rebuildThumbs(){
+  const trow=document.getElementById('trow');
+  trow.innerHTML='';
+  templates.forEach((t,i)=>{
+    const btn=document.createElement('button');
+    btn.className='tb'+(i===active?' on':'');
+    btn.appendChild(buildThumb(t));
+    const ov=document.createElement('div');ov.className='tb-overlay';
+    const nm=document.createElement('span');nm.className='tb-name';nm.textContent=t.name;
+    ov.appendChild(nm);btn.appendChild(ov);
+    if(t.isCustom){
+      const del=document.createElement('button');del.className='del-btn';del.innerHTML='&times;';
+      del.onclick=e=>{e.stopPropagation();templates.splice(i,1);if(active>=templates.length)active=templates.length-1;rebuildThumbs();render();};
+      btn.appendChild(del);
+    }
+    btn.onclick=()=>{
+      active=i;
+      document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      if(t.tc){const hx=hexVal(t.tc);document.getElementById('tc').value=hx;document.getElementById('tc-hex').textContent=hx;}
+      const ob=document.getElementById('overlay-block');
+      ob.classList.toggle('visible',!!t.isCustom);
+      document.getElementById('status-tmpl').textContent='Template: '+t.name;
+      render();
+    };
+    trow.appendChild(btn);
+  });
+}
+
+rebuildThumbs();
+
+document.getElementById('ufile').addEventListener('change',function(){
+  const file=this.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const name=file.name.replace(/\.[^.]+$/,'').slice(0,9);
+      templates.push({name,tc:'#ffffff',ac:'rgba(255,255,255,0.8)',img,isCustom:true});
+      active=templates.length-1;
+      rebuildThumbs();
+      document.getElementById('tc').value='#ffffff';
+      document.getElementById('tc-hex').textContent='#ffffff';
+      document.getElementById('overlay-block').classList.add('visible');
+      document.getElementById('status-tmpl').textContent='Template: '+name;
+      render();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+  this.value='';
+});
+
+document.getElementById('overlay').addEventListener('input',function(){
+  document.getElementById('ovout').textContent=Math.round(parseFloat(this.value)*100)+'%';
+  render();
+});
+
+function setAlign(a){
+  curAlign=a;
+  document.querySelectorAll('.align-btn').forEach(b=>b.classList.toggle('on',b.dataset.align===a));
+  render();
+}
+
+function wrapText(ctx,text,maxW){
+  const chars=[...text];const lines=[];let line='';
+  for(const ch of chars){
+    const t2=line+ch;
+    if(ctx.measureText(t2).width>maxW&&line){lines.push(line);line=ch;}
+    else line=t2;
+  }
+  if(line)lines.push(line);
+  return lines;
+}
+
+function updateCounts(){
+  const v=document.getElementById('poem').value;
+  document.getElementById('lcount').textContent=v.split('\n').length;
+  document.getElementById('ccount').textContent=v.length;
+}
+
+function render(){
+  const poem=document.getElementById('poem').value;
+  const font=document.getElementById('fsel').value;
+  const fs=parseInt(document.getElementById('fs').value);
+  const ls=parseFloat(document.getElementById('ls').value);
+  const tc=document.getElementById('tc').value;
+  const auth=document.getElementById('auth').value;
+  const tmpl=templates[active];
+  const W=cv.width,H=cv.height;
+  ctx2.clearRect(0,0,W,H);
+  if(tmpl.img){
+    const iw=tmpl.img.naturalWidth||tmpl.img.width,ih=tmpl.img.naturalHeight||tmpl.img.height;
+    const sc=Math.max(W/iw,H/ih);
+    ctx2.drawImage(tmpl.img,(W-iw*sc)/2,(H-ih*sc)/2,iw*sc,ih*sc);
+    const ov=parseFloat(document.getElementById('overlay').value);
+    ctx2.fillStyle=`rgba(0,0,0,${ov})`;ctx2.fillRect(0,0,W,H);
+  } else { tmpl.draw(ctx2,W,H); }
+  const pad=90,cW=W-pad*2;
+  ctx2.font=`${fs}px ${font}`;ctx2.textAlign=curAlign;
+  const xPos=curAlign==='center'?W/2:curAlign==='left'?pad:W-pad;
+  let all=[];
+  for(const r of poem.split('\n')){
+    if(!r.trim()){all.push('');continue;}
+    all.push(...wrapText(ctx2,r,cW));
+  }
+  const lh=fs*ls;
+  const totalH=all.length*lh;
+  const authH=auth?fs*0.65+36:0;
+  let y=(H-totalH-authH)/2+fs;
+  ctx2.fillStyle=tc;
+  all.forEach((line,i)=>{
+    if(!line)return;
+    ctx2.font=`${fs}px ${font}`;
+    ctx2.fillText(line,xPos,y+i*lh);
+  });
+  if(auth){
+    ctx2.globalAlpha=0.75;
+    ctx2.fillStyle=tmpl.isCustom?tc:(tmpl.ac||tc);
+    ctx2.font=`italic ${Math.round(fs*.58)}px ${font}`;
+    ctx2.fillText('— '+auth,xPos,y+all.length*lh+30);
+    ctx2.globalAlpha=1;
+  }
+  updateCounts();
+}
+
+document.getElementById('tc').addEventListener('input',function(){
+  document.getElementById('tc-hex').textContent=this.value;render();
+});
+
+['poem','fsel','auth'].forEach(id=>document.getElementById(id).addEventListener('input',render));
+
+document.getElementById('fs').addEventListener('input',function(){
+  document.getElementById('fsout').textContent=this.value;
+  document.getElementById('status-font').textContent='Size: '+this.value+'px';
+  render();
+});
+document.getElementById('ls').addEventListener('input',function(){
+  document.getElementById('lsout').textContent=parseFloat(this.value).toFixed(1);render();
+});
+document.getElementById('fsel').addEventListener('change',function(){
+  const name=this.options[this.selectedIndex].text;
+  document.getElementById('status-font').textContent='Font: '+name;
+  render();
+});
+
+function dl(fmt){
+  render();
+  const a=document.createElement('a');
+  a.download='kavithai.'+fmt;
+  a.href=fmt==='png'?cv.toDataURL('image/png'):cv.toDataURL('image/jpeg',.95);
+  a.click();
+}
+
+document.fonts.ready.then(()=>render());
+</script>
+</body>
+</html>
