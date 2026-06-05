@@ -725,7 +725,7 @@ Paste your poem here...">யாகாவாராயினும் நாகா
 
 <script>
 const TMPLS=[
-  {name:"இரவு",tc:"#e8e0ff",ac:"#b0a0e0",
+  {name:"Night",tc:"#e8e0ff",ac:"#b0a0e0",
     draw(c,w,h){
       c.fillStyle="#0d0c18";c.fillRect(0,0,w,h);
       c.strokeStyle="rgba(180,160,255,0.05)";
@@ -734,7 +734,7 @@ const TMPLS=[
       g.addColorStop(0,"rgba(100,80,200,0.12)");g.addColorStop(1,"transparent");
       c.fillStyle=g;c.fillRect(0,0,w,h);
     }},
-  {name:"பொன்னொளி",tc:"#f5e49a",ac:"#d4af37",
+  {name:"Golden Light",tc:"#f5e49a",ac:"#d4af37",
     draw(c,w,h){
       c.fillStyle="#0e0b00";c.fillRect(0,0,w,h);
       const g=c.createRadialGradient(w*.5,h*.5,0,w*.5,h*.5,w*.7);
@@ -744,7 +744,7 @@ const TMPLS=[
       c.strokeStyle="rgba(201,168,76,0.06)";c.lineWidth=.4;c.strokeRect(48,48,w-96,h-96);
       for(let i=0;i<16;i++){c.beginPath();c.moveTo(i*(w/16),0);c.lineTo(i*(w/16)+160,h);c.lineWidth=.3;c.stroke();}
     }},
-  {name:"மலர்",tc:"#5a2030",ac:"#b85060",
+  {name:"Flower",tc:"#5a2030",ac:"#b85060",
     draw(c,w,h){
       c.fillStyle="#fef6f0";c.fillRect(0,0,w,h);
       [[.08,.08,"#fce4ec"],[.92,.1,"#fdd5c0"],[.05,.9,"#fff0e8"],[.93,.88,"#fce4ec"],[.5,.5,"#fdeef5"]].forEach(([sx,sy,col])=>{
@@ -753,7 +753,7 @@ const TMPLS=[
         c.fillStyle=g;c.fillRect(0,0,w,h);
       });
     }},
-  {name:"பழந்தாள்",tc:"#2e1a0e",ac:"#7a4a20",
+  {name:"Yellow",tc:"#2e1a0e",ac:"#7a4a20",
     draw(c,w,h){
       c.fillStyle="#f2e8cc";c.fillRect(0,0,w,h);
       c.strokeStyle="rgba(100,60,20,0.07)";
@@ -762,7 +762,7 @@ const TMPLS=[
       c.fillStyle=g;c.fillRect(0,0,w,h);
       c.strokeStyle="rgba(100,60,20,0.18)";c.lineWidth=1.2;c.strokeRect(22,22,w-44,h-44);
     }},
-  {name:"காடு",tc:"#c8e6c9",ac:"#81c784",
+  {name:"Forest",tc:"#c8e6c9",ac:"#81c784",
     draw(c,w,h){
       c.fillStyle="#081208";c.fillRect(0,0,w,h);
       const g=c.createRadialGradient(w/2,h*.2,0,w/2,h*.2,w*.9);
@@ -771,7 +771,7 @@ const TMPLS=[
       c.strokeStyle="rgba(80,160,80,0.06)";
       for(let i=0;i<18;i++){c.beginPath();c.moveTo(Math.random()*w,0);c.lineTo(Math.random()*w,h);c.lineWidth=.4;c.stroke();}
     }},
-  {name:"நீலக்கடல்",tc:"#dbeeff",ac:"#80b8e8",
+  {name:"Ocean",tc:"#dbeeff",ac:"#80b8e8",
     draw(c,w,h){
       c.fillStyle="#040d1c";c.fillRect(0,0,w,h);
       const g=c.createRadialGradient(w*.35,h*.3,0,w*.35,h*.3,w*.8);
@@ -780,7 +780,7 @@ const TMPLS=[
       c.strokeStyle="rgba(80,140,210,0.06)";
       for(let i=0;i<7;i++){c.beginPath();c.arc(w*.35,h*.3,80+i*90,0,Math.PI*2);c.lineWidth=.5;c.stroke();}
     }},
-  {name:"சிவப்பு",tc:"#ffe8e8",ac:"#e08080",
+  {name:"Red",tc:"#ffe8e8",ac:"#e08080",
     draw(c,w,h){
       c.fillStyle="#120808";c.fillRect(0,0,w,h);
       const g=c.createRadialGradient(w/2,h/2,0,w/2,h/2,w*.7);
@@ -789,7 +789,7 @@ const TMPLS=[
       c.strokeStyle="rgba(200,80,80,0.08)";c.lineWidth=.5;
       for(let i=0;i<8;i++){c.beginPath();c.arc(w/2,h/2,60+i*80,0,Math.PI*2);c.stroke();}
     }},
-  {name:"வெண்மை",tc:"#2a2a2a",ac:"#666",
+  {name:"White",tc:"#2a2a2a",ac:"#666",
     draw(c,w,h){
       c.fillStyle="#fafaf8";c.fillRect(0,0,w,h);
       c.strokeStyle="rgba(0,0,0,0.04)";
